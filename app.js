@@ -9,9 +9,8 @@ app.use(cors()); // 启用跨域支持
 app.use(bodyParser.json()); // 解析 JSON 格式的请求体
 app.use(bodyParser.urlencoded({ extended: true })); // 解析表单数据
 
-
-app.get('/tasks', tasks.getTasksByPage);
-
+app.get('/tasks/:page', tasks.getTasksByPage);
+app.get('/tasks/id/:id', tasks.getTaskById);
 
 app.listen(8080, () => {
     console.log('Server is running on port 8080');
