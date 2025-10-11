@@ -1,0 +1,495 @@
+FORMAT: 1A
+HOST: http://localhost:8080
+
+# EasyTask API
+
+EasyTask 是一个任务管理系统的后端 API，提供任务和里程碑的完整 CRUD 操作。
+
+# Group 健康检查
+
+## 健康检查 [GET /health]
+
+检查服务运行状态
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "status": 200,
+                "message": "服务运行正常",
+                "data": {
+                    "timestamp": "2025-01-27T10:30:00.000Z",
+                    "uptime": 3600
+                }
+            }
+
+# Group 任务管理
+
+## 获取任务列表 [GET /api/v1/tasks{?page,limit}]
+
+获取分页的任务列表
+
++ Parameters
+    + page (number, optional) - 页码，默认为 1
+        + Default: 1
+    + limit (number, optional) - 每页数量，默认为 10，最大 100
+        + Default: 10
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "status": 200,
+                "message": "获取任务列表成功",
+                "data": {
+                    "currentPage": 1,
+                    "pageSize": 10,
+                    "total": 35,
+                    "totalPages": 4,
+                    "hasNextPage": true,
+                    "hasPreviousPage": false,
+                    "nextPage": 2,
+                    "previousPage": 1,
+                    "data": [
+                        {
+                            "id": 1,
+                            "title": "阅读任务",
+                            "type": "#FFFFFF",
+                            "status": "unfinished",
+                            "createTime": "2025-09-25 10:00:00",
+                            "content": [
+                                {
+                                    "key": 1,
+                                    "text": "读《JavaScript高级程序设计》"
+                                }
+                            ],
+                            "chips": [
+                                {
+                                    "label": "重要",
+                                    "color": "red",
+                                    "icon": "mdi-alert"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "status": 404,
+                "message": "页面不存在",
+                "data": null
+            }
+
+## 获取单个任务 [GET /api/v1/tasks/{id}]
+
+根据 ID 获取单个任务详情
+
++ Parameters
+    + id (number, required) - 任务 ID
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "status": 200,
+                "message": "获取任务成功",
+                "data": {
+                    "id": 1,
+                    "title": "阅读任务",
+                    "type": "#FFFFFF",
+                    "status": "unfinished",
+                    "createTime": "2025-09-25 10:00:00",
+                    "content": [
+                        {
+                            "key": 1,
+                            "text": "读《JavaScript高级程序设计》"
+                        }
+                    ],
+                    "chips": [
+                        {
+                            "label": "重要",
+                            "color": "red",
+                            "icon": "mdi-alert"
+                        }
+                    ]
+                }
+            }
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "status": 404,
+                "message": "任务不存在",
+                "data": null
+            }
+
+## 创建任务 [POST /api/v1/tasks]
+
+创建新的任务
+
++ Request (application/x-www-form-urlencoded)
+
+    + Body
+
+            title=新任务&type=%23FFFFFF&status=unfinished&content=[{"key":1,"text":"任务内容"}]&chips=[{"label":"标签","color":"blue"}]
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "status": 201,
+                "message": "任务创建成功",
+                "data": {
+                    "id": 36,
+                    "title": "新任务",
+                    "type": "#FFFFFF",
+                    "status": "unfinished",
+                    "createTime": "2025-01-27 10:30:00",
+                    "content": [
+                        {
+                            "key": 1,
+                            "text": "任务内容"
+                        }
+                    ],
+                    "chips": [
+                        {
+                            "label": "标签",
+                            "color": "blue"
+                        }
+                    ]
+                }
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "status": 400,
+                "message": "请求参数验证失败",
+                "data": {
+                    "errors": [
+                        {
+                            "field": "title",
+                            "message": "任务标题不能为空",
+                            "value": ""
+                        }
+                    ]
+                }
+            }
+
+## 更新任务 [PUT /api/v1/tasks/{id}]
+
+更新指定任务的信息
+
++ Parameters
+    + id (number, required) - 任务 ID
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "title": "更新后的任务标题",
+                "status": "finished",
+                "content": [
+                    {
+                        "key": 1,
+                        "text": "更新后的任务内容"
+                    }
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "status": 200,
+                "message": "任务更新成功",
+                "data": {
+                    "id": 1,
+                    "title": "更新后的任务标题",
+                    "type": "#FFFFFF",
+                    "status": "finished",
+                    "createTime": "2025-09-25 10:00:00",
+                    "content": [
+                        {
+                            "key": 1,
+                            "text": "更新后的任务内容"
+                        }
+                    ],
+                    "chips": []
+                }
+            }
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "status": 404,
+                "message": "任务不存在",
+                "data": null
+            }
+
+## 删除任务 [DELETE /api/v1/tasks/{id}]
+
+删除指定的任务
+
++ Parameters
+    + id (number, required) - 任务 ID
+
++ Response 204 (text/plain)
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "status": 404,
+                "message": "任务不存在",
+                "data": null
+            }
+
+# Group 里程碑管理
+
+## 获取里程碑列表 [GET /api/v1/milestones]
+
+获取所有里程碑列表
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "status": 200,
+                "message": "获取里程碑列表成功",
+                "data": [
+                    {
+                        "id": 1,
+                        "title": "我的学习里程碑计划",
+                        "description": "在截止时间前完成学习任务",
+                        "createdAt": "2021-01-01",
+                        "tasksId": [3],
+                        "targetAt": "2022-03-21",
+                        "mark": "注意查询资料"
+                    }
+                ]
+            }
+
+## 获取单个里程碑 [GET /api/v1/milestones/{id}]
+
+根据 ID 获取单个里程碑详情
+
++ Parameters
+    + id (number, required) - 里程碑 ID
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "status": 200,
+                "message": "获取里程碑成功",
+                "data": {
+                    "id": 1,
+                    "title": "我的学习里程碑计划",
+                    "description": "在截止时间前完成学习任务",
+                    "createdAt": "2021-01-01",
+                    "tasksId": [3],
+                    "targetAt": "2022-03-21",
+                    "mark": "注意查询资料"
+                }
+            }
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "status": 404,
+                "message": "里程碑不存在",
+                "data": null
+            }
+
+## 创建里程碑 [POST /api/v1/milestones]
+
+创建新的里程碑
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "title": "新的里程碑计划",
+                "description": "里程碑描述",
+                "tasksId": [1, 2, 3],
+                "targetAt": "2025-12-31",
+                "mark": "重要里程碑"
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "status": 201,
+                "message": "里程碑创建成功",
+                "data": {
+                    "id": 5,
+                    "title": "新的里程碑计划",
+                    "description": "里程碑描述",
+                    "createdAt": "2025-01-27",
+                    "tasksId": [1, 2, 3],
+                    "targetAt": "2025-12-31",
+                    "mark": "重要里程碑"
+                }
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "status": 400,
+                "message": "请求参数验证失败",
+                "data": {
+                    "errors": [
+                        {
+                            "field": "title",
+                            "message": "里程碑标题不能为空",
+                            "value": ""
+                        }
+                    ]
+                }
+            }
+
+## 更新里程碑 [PUT /api/v1/milestones/{id}]
+
+更新指定里程碑的信息
+
++ Parameters
+    + id (number, required) - 里程碑 ID
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "title": "更新后的里程碑标题",
+                "description": "更新后的描述",
+                "targetAt": "2025-12-31"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "status": 200,
+                "message": "里程碑更新成功",
+                "data": {
+                    "id": 1,
+                    "title": "更新后的里程碑标题",
+                    "description": "更新后的描述",
+                    "createdAt": "2021-01-01",
+                    "tasksId": [3],
+                    "targetAt": "2025-12-31",
+                    "mark": "注意查询资料"
+                }
+            }
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "status": 404,
+                "message": "里程碑不存在",
+                "data": null
+            }
+
+## 删除里程碑 [DELETE /api/v1/milestones/{id}]
+
+删除指定的里程碑
+
++ Parameters
+    + id (number, required) - 里程碑 ID
+
++ Response 204 (text/plain)
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "status": 404,
+                "message": "里程碑不存在",
+                "data": null
+            }
+
+# Group 错误响应
+
+## 通用错误响应
+
+所有 API 都遵循统一的错误响应格式：
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "status": 400,
+                "message": "请求参数验证失败",
+                "data": {
+                    "errors": [
+                        {
+                            "field": "fieldName",
+                            "message": "错误描述",
+                            "value": "错误值"
+                        }
+                    ]
+                }
+            }
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "status": 404,
+                "message": "资源不存在",
+                "data": null
+            }
+
++ Response 429 (application/json)
+
+    + Body
+
+            {
+                "status": 429,
+                "message": "请求过于频繁，请稍后再试",
+                "data": null
+            }
+
++ Response 500 (application/json)
+
+    + Body
+
+            {
+                "status": 500,
+                "message": "服务器内部错误",
+                "data": null
+            }

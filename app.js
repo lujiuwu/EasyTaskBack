@@ -1,24 +1,87 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const compression = require('compression');
+const rateLimit = require('express-rate-limit');
 const cors = require('cors');
+const multer = require('multer');
+
+// 导入路由模块
+const tasksRouter = require('./routes/tasks');
+const milestonesRouter = require('./routes/milestones');
+
+// 导入中间件
+const errorHandler = require('./middleware/errorHandler');
+
 const app = express();
-const tasks = require('./tasks/index');
-const flags = require('./flags/index');
 
-// 配置中间件
-app.use(cors()); // 启用跨域支持
-app.use(bodyParser.json()); // 解析 JSON 格式的请求体
-app.use(bodyParser.urlencoded({ extended: true })); // 解析表单数据
+// 安全中间件
+app.use(helmet());
 
-app.get('/tasks/:page', tasks.getTasksByPage);
-app.get('/tasks/id/:id', tasks.getTaskById);
+// 压缩响应
+app.use(compression());
 
-// Flags API 路由
-app.get('/flags', flags.getAllFlags);
-app.get('/flags/id/:id', flags.getMilestoneById);
+// 请求日志
+app.use(morgan('combined'));
 
-app.listen(8080, () => {
-    console.log('Server is running on port 8080');
+// 跨域配置
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' ? false : true,
+  credentials: true
+}));
+
+// 速率限制
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15分钟
+  max: 100, // 限制每个IP 15分钟内最多100个请求
+  message: {
+    status: 429,
+    message: '请求过于频繁，请稍后再试',
+    data: null
+  }
+});
+app.use(limiter);
+
+// 解析中间件
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// 配置 multer 用于处理 form-data
+const upload = multer();
+
+// 健康检查端点
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 200,
+    message: '服务运行正常',
+    data: {
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime()
+    }
+  });
 });
 
+// API 路由
+app.use('/api/v1/tasks', upload.none(), tasksRouter);
+app.use('/api/v1/milestones', milestonesRouter);
 
+// 404 处理
+app.use((req, res) => {
+  res.status(404).json({
+    status: 404,
+    message: '接口不存在',
+    data: null
+  });
+});
+
+// 全局错误处理中间件
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => {
+  console.log(`服务器运行在端口 ${PORT}`);
+  console.log(`健康检查: http://localhost:${PORT}/health`);
+});
+
+module.exports = app;
