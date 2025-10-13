@@ -45,11 +45,10 @@ router.get('/', [
 // 根据ID获取单个任务
 // GET /api/v1/tasks/:id
 router.get('/:id', [
-  param('id').isInt({ min: 1 }).withMessage('任务ID必须是正整数'),
-  validateRequest
+  param('id'),
 ], (req, res) => {
   try {
-    const taskId = parseInt(req.params.id);
+    const taskId = req.params.id;
     
     // 遍历所有页面查找任务
     let taskData = null;
@@ -75,7 +74,7 @@ router.get('/:id', [
 // POST /api/v1/tasks
 router.post('/', [
   body('title').notEmpty().withMessage('任务标题不能为空'),
-  body('type').optional().isIn(['#FFFFFF', '#E0F2F1', '#FFCDD2', '#E3F2FD', '#EDE7F6']).withMessage('任务类型无效'),
+  body('type').optional(),
   body('status').optional().isIn(['unfinished', 'finished']).withMessage('任务状态无效'),
   body('content').optional().isArray().withMessage('任务内容必须是数组'),
   body('chips').optional().isArray().withMessage('标签必须是数组'),
@@ -168,11 +167,10 @@ router.put('/:id', [
 // 删除任务
 // DELETE /api/v1/tasks/:id
 router.delete('/:id', [
-  param('id').isInt({ min: 1 }).withMessage('任务ID必须是正整数'),
-  validateRequest
+  param('id')
 ], (req, res) => {
   try {
-    const taskId = parseInt(req.params.id);
+    const taskId = req.params.id;
     
     // 查找并删除任务
     let deleted = false;

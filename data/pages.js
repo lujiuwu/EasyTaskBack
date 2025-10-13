@@ -22,7 +22,7 @@ module.exports = [
     data: [
       {
         title: '阅读任务',
-        id: 1,
+        id: '1',
         type: TaskType.NORMAL,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-25 10:00:00',
@@ -40,7 +40,7 @@ module.exports = [
       },
       {
         title: '锻炼任务',
-        id: 2,
+        id: '2',
         type: TaskType.SCHEDULE,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-21 11:20:45',
@@ -52,7 +52,7 @@ module.exports = [
       },
       {
         title: '学习任务',
-        id: 3,
+        id: '3',
         type: TaskType.NORMAL,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-20 12:30:15',
@@ -68,7 +68,7 @@ module.exports = [
       },
       {
         title: '生活任务',
-        id: 4,
+        id: '4',
         type: TaskType.DAILY,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-19 10:15:20',
@@ -84,7 +84,7 @@ module.exports = [
       },
       {
         title: '工作任务',
-        id: 5,
+        id: '5',
         type: TaskType.WORK,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-27 17:01:22',
@@ -106,7 +106,7 @@ module.exports = [
       {
         title: '周末计划',
         createTime: '2025-09-11 08:10:17',
-        id: 7,
+        id: '7',
         type: TaskType.SCHEDULE,
         status: TaskStatus.FINISHED,
         content: [
@@ -117,7 +117,7 @@ module.exports = [
       {
         title: '月度总结',
         createTime: '2025-09-11 08:10:17',
-        id: 8,
+        id: '8',
         type: TaskType.SCHEDULE,
         status: TaskStatus.FINISHED,
         content: [
@@ -128,7 +128,7 @@ module.exports = [
       {
         title: '季度规划',
         createTime: '2025-09-11 08:10:17',
-        id: 9,
+        id: '9',
         type: TaskType.SCHEDULE,
         status: TaskStatus.FINISHED,
         content: [
@@ -139,7 +139,7 @@ module.exports = [
       {
         title: '年度回顾',
         createTime: '2025-09-11 08:10:17',
-        id: 10,
+        id: '10',
         type: TaskType.SCHEDULE,
         status: TaskStatus.FINISHED,
         content: [
@@ -161,7 +161,7 @@ module.exports = [
     data: [
       {
         title: '技术学习',
-        id: 11,
+        id: '11',
         type: TaskType.NORMAL,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-15 14:20:30',
@@ -176,7 +176,7 @@ module.exports = [
       },
       {
         title: '健康管理',
-        id: 12,
+        id: '12',
         type: TaskType.DAILY,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-14 07:30:00',
@@ -188,7 +188,7 @@ module.exports = [
       },
       {
         title: '财务管理',
-        id: 13,
+        id: '13',
         type: TaskType.DAILY,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-13 20:15:00',
@@ -200,7 +200,7 @@ module.exports = [
       },
       {
         title: '社交活动',
-        id: 14,
+        id: '14',
         type: TaskType.SCHEDULE,
         status: TaskStatus.FINISHED,
         createTime: '2025-09-12 18:00:00',
@@ -211,7 +211,7 @@ module.exports = [
       },
       {
         title: '家庭事务',
-        id: 15,
+        id: '15',
         type: TaskType.DAILY,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-11 09:00:00',
@@ -223,7 +223,7 @@ module.exports = [
       },
       {
         title: '职业发展',
-        id: 16,
+        id: '16',
         type: TaskType.WORK,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-10 16:45:00',
@@ -235,7 +235,7 @@ module.exports = [
       },
       {
         title: '创意项目',
-        id: 17,
+        id: '17',
         type: TaskType.NORMAL,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-09 13:20:00',
@@ -250,7 +250,7 @@ module.exports = [
       },
       {
         title: '旅行计划',
-        id: 18,
+        id: '18',
         type: TaskType.SCHEDULE,
         status: TaskStatus.FINISHED,
         createTime: '2025-09-08 11:10:00',
@@ -262,7 +262,7 @@ module.exports = [
       },
       {
         title: '学习小组',
-        id: 19,
+        id: '19',
         type: TaskType.NORMAL,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-07 19:00:00',
@@ -274,7 +274,7 @@ module.exports = [
       },
       {
         title: '产品调研',
-        id: 20,
+        id: '20',
         type: TaskType.WORK,
         status: TaskStatus.FINISHED,
         createTime: '2025-09-06 10:30:00',
@@ -298,7 +298,7 @@ module.exports = [
     data: [
       {
         title: '团队建设',
-        id: 21,
+        id: '21',
         type: TaskType.WORK,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-05 15:20:00',
@@ -310,7 +310,7 @@ module.exports = [
       },
       {
         title: '个人成长',
-        id: 22,
+        id: '22',
         type: TaskType.NORMAL,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-04 08:45:00',
@@ -322,7 +322,7 @@ module.exports = [
       },
       {
         title: '客户会议',
-        id: 23,
+        id: '23',
         type: TaskType.WORK,
         status: TaskStatus.FINISHED,
         createTime: '2025-09-03 14:00:00',
@@ -334,7 +334,7 @@ module.exports = [
       },
       {
         title: '系统维护',
-        id: 24,
+        id: '24',
         type: TaskType.WORK,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-02 09:30:00',
@@ -346,7 +346,7 @@ module.exports = [
       },
       {
         title: '内容创作',
-        id: 25,
+        id: '25',
         type: TaskType.NORMAL,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-09-01 11:15:00',
@@ -361,7 +361,7 @@ module.exports = [
       },
       {
         title: '产品测试',
-        id: 26,
+        id: '26',
         type: TaskType.WORK,
         status: TaskStatus.FINISHED,
         createTime: '2025-08-31 13:45:00',
@@ -373,7 +373,7 @@ module.exports = [
       },
       {
         title: '技能培训',
-        id: 27,
+        id: '27',
         type: TaskType.WORK,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-08-30 10:00:00',
@@ -385,7 +385,7 @@ module.exports = [
       },
       {
         title: '社区参与',
-        id: 28,
+        id: '28',
         type: TaskType.NORMAL,
         status: TaskStatus.FINISHED,
         createTime: '2025-08-29 18:20:00',
@@ -397,7 +397,7 @@ module.exports = [
       },
       {
         title: '数据分析',
-        id: 29,
+        id: '29',
         type: TaskType.WORK,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-08-28 14:30:00',
@@ -409,7 +409,7 @@ module.exports = [
       },
       {
         title: '项目管理',
-        id: 30,
+        id: '30',
         type: TaskType.WORK,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-08-27 16:10:00',
@@ -433,7 +433,7 @@ module.exports = [
     data: [
       {
         title: '质量保证',
-        id: 31,
+        id: '31',
         type: TaskType.WORK,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-08-26 09:45:00',
@@ -445,7 +445,7 @@ module.exports = [
       },
       {
         title: '文档整理',
-        id: 32,
+        id: '32',
         type: TaskType.WORK,
         status: TaskStatus.FINISHED,
         createTime: '2025-08-25 11:20:00',
@@ -457,7 +457,7 @@ module.exports = [
       },
       {
         title: '环境配置',
-        id: 33,
+        id: '33',
         type: TaskType.WORK,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-08-24 13:15:00',
@@ -469,7 +469,7 @@ module.exports = [
       },
       {
         title: '需求分析',
-        id: 34,
+        id: '34',
         type: TaskType.WORK,
         status: TaskStatus.FINISHED,
         createTime: '2025-08-23 10:30:00',
@@ -481,7 +481,7 @@ module.exports = [
       },
       {
         title: '项目总结',
-        id: 35,
+        id: '35',
         type: TaskType.WORK,
         status: TaskStatus.UNFINISHED,
         createTime: '2025-08-22 15:40:00',
