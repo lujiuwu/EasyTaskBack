@@ -53,7 +53,7 @@ router.get('/:id', [
     // 遍历所有页面查找任务
     let taskData = null;
     for (const page of pages) {
-      const task = page.data.find(task => task.id === taskId);
+      const task = page.data.find(task => task.id == taskId || task.id === taskId.toString());
       if (task) {
         taskData = task;
         break;
@@ -123,6 +123,7 @@ router.put('/:id', [
   try {
     const taskId = parseInt(req.params.id);
     const updates = req.body;
+    console.log(updates);
     
     // 查找任务
     let taskData = null;
@@ -131,7 +132,7 @@ router.put('/:id', [
     
     for (let i = 0; i < pages.length; i++) {
       const task = pages[i].data.find((task, index) => {
-        if (task.id === taskId) {
+        if (task.id == taskId || task.id === taskId.toString()) {
           taskIndex = index;
           return true;
         }
@@ -175,7 +176,7 @@ router.delete('/:id', [
     // 查找并删除任务
     let deleted = false;
     for (let i = 0; i < pages.length; i++) {
-      const taskIndex = pages[i].data.findIndex(task => task.id === taskId);
+      const taskIndex = pages[i].data.findIndex(task => task.id == taskId || task.id === taskId.toString());
       if (taskIndex !== -1) {
         pages[i].data.splice(taskIndex, 1);
         pages[i].total -= 1;

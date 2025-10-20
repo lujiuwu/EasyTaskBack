@@ -9,7 +9,7 @@ const multer = require('multer');
 // 导入路由模块
 const tasksRouter = require('./routes/tasks');
 const milestonesRouter = require('./routes/milestones');
-
+const starsRouter = require('./routes/stars');
 // 导入中间件
 const errorHandler = require('./middleware/errorHandler');
 
@@ -64,7 +64,7 @@ app.get('/health', (req, res) => {
 // API 路由
 app.use('/api/v1/tasks', upload.none(), tasksRouter);
 app.use('/api/v1/milestones', milestonesRouter);
-
+app.use('/api/v1/stars', starsRouter);
 // 404 处理
 app.use((req, res) => {
   res.status(404).json({
