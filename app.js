@@ -10,8 +10,10 @@ const multer = require('multer');
 const tasksRouter = require('./routes/tasks');
 const milestonesRouter = require('./routes/milestones');
 const starsRouter = require('./routes/stars');
+const authRouter = require('./routes/auth');
 // 导入中间件
 const errorHandler = require('./middleware/errorHandler');
+const { authenticate } = require('./middleware/auth');
 
 const app = express();
 
@@ -62,9 +64,10 @@ app.get('/health', (req, res) => {
 });
 
 // API 路由
-app.use('/api/v1/tasks', upload.none(), tasksRouter);
-app.use('/api/v1/milestones', milestonesRouter);
-app.use('/api/v1/stars', starsRouter);
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/tasks', authenticate, upload.none(), tasksRouter);
+app.use('/api/v1/milestones', authenticate, milestonesRouter);
+app.use('/api/v1/stars', authenticate, starsRouter);
 // 404 处理
 app.use((req, res) => {
   res.status(404).json({
